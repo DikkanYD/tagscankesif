@@ -1,0 +1,9 @@
+{
+  "api_url": "http://172.16.49.2:5090",
+  "api_token": "",
+  "rssi_esigi": -60,
+  "tarama_sn": 6,
+  "kayit_modu_poll_sn": 10,
+  "sadece_kayit_modunda": true,
+  "kesif_cooldown_sn": 15
+}

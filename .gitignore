@@ -1,0 +1,13 @@
+# Yerel ayar (api_token içerir) — örnek için config.example.json'a bak
+config.json
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# PyInstaller
+build/
+dist/
+*.spec
