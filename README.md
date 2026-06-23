@@ -50,14 +50,47 @@ python kesif_app.py
 > Etraftaki telefon/saat de eşiği geçerse listeye düşebilir; panelden "yoksay" ile
 > geçersin. Çok düşüyorsa `rssi_esigi`'ni sıkılaştır (örn. `-45`) ve tag'i iyice yaklaştır.
 
+## Sistem tepsisi (system tray) sürümü — `kesif_tray.py`
+
+Konsol penceresi yerine **saatin yanındaki tepsi alanında** sessizce duran sürüm.
+Aynı keşif/öttürme mantığını çalıştırır (`kesif_app.KesifUygulamasi`), sadece arayüzü
+farklı. Saha PC'si için önerilen budur.
+
+> **Neden servis değil?** BLE/Bluetooth, Windows servisinin koştuğu "Session 0"da
+> güvenilmez çalışır (çoğu zaman cihaz göremez, üstelik sessizce). Tepsi uygulaması
+> gerçek **kullanıcı oturumunda** çalışır → Bluetooth sorunsuz. "PC açılınca başlasın"
+> ihtiyacını da aşağıdaki **Windows açılışında başlat** seçeneği karşılar.
+
+```powershell
+pip install -r requirements.txt          # pystray + Pillow dahil
+pythonw kesif_tray.py                     # pencere açılmadan tepside başlar
+```
+
+Tepsi simgesine **sağ tık** menüsü:
+
+| Öğe | Ne yapar |
+|---|---|
+| **Durumu göster** | Son log satırını baloncukta gösterir (sol tıkla da çıkar) |
+| **Logları aç** | `kesif.log` dosyasını açar (pencere olmadığı için çıktı oraya yazılır) |
+| **Windows açılışında başlat** | Oturum açılınca otomatik başlatmayı aç/kapat (`HKCU\…\Run`) |
+| **Çıkış** | Uygulamayı kapatır |
+
+- Aynı anda **tek kopya** çalışır (autostart + elle açma çakışmaz).
+- Çıktılar `config.json` ile aynı klasördeki `kesif.log`'a gider (1 MB'ı geçince sıfırlanır).
+
 ## .exe yapmak (opsiyonel)
 
 Kuruluma gerek kalmadan dağıtmak için:
 
 ```powershell
 pip install pyinstaller
+
+# Konsollu keşif sürümü:
 pyinstaller --onefile --name tag-scan-kesif kesif_app.py
-# dist\tag-scan-kesif.exe + yanına config.json
+
+# Tepsi sürümü (pencere açılmaz):
+pyinstaller tag-scan-kesif-tray.spec      # -> dist\tag-scan-kesif-tray.exe
+# yanına config.json bırak; kesif.log orada oluşur
 ```
 
 ## Notlar

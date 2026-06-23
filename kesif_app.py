@@ -23,7 +23,19 @@ import time
 import requests
 from bleak import BleakClient, BleakScanner
 
-KOK = os.path.dirname(os.path.abspath(__file__))
+def _taban_dizin():
+    """config.json'un yanında duracağı dizin.
+
+    PyInstaller ile .exe yapıldığında (frozen) __file__ geçici _MEIPASS
+    klasörüne çözülür; orada oluşan config.json kaybolur. Frozen iken exe'nin
+    yanını kullan ki ayarlar kalıcı olsun.
+    """
+    if getattr(sys, "frozen", False):
+        return os.path.dirname(os.path.abspath(sys.executable))
+    return os.path.dirname(os.path.abspath(__file__))
+
+
+KOK = _taban_dizin()
 CONFIG_YOLU = os.path.join(KOK, "config.json")
 
 # Öttürme (Gigaset keeper / DA1458x) — Immediate Alert servisi 0x1802 / 0x2A06 <- 0x02.
