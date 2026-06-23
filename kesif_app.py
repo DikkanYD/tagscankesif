@@ -50,7 +50,7 @@ MODEL_NUMBER = "00002a24-0000-1000-8000-00805f9b34fb"
 VARSAYILAN = {
     "api_url": "http://172.16.49.2:5090",   # tag-scan-api adresi (sonunda / olmasın)
     "api_token": "",                         # config.json api.token ile aynı (boş = token yok)
-    "rssi_esigi": -60,                       # bundan güçlü (>=) görülen cihazlar keşfe gider
+    "rssi_esigi": -50,                       # bundan güçlü (>=) görülen cihazlar keşfe gider
     "tarama_sn": 6,                          # her BLE tarama turu süresi
     "kayit_modu_poll_sn": 10,                # kayıt modu bayrağını yoklama aralığı
     "sadece_kayit_modunda": True,            # True: kayıt modu kapalıyken keşif göndermez
